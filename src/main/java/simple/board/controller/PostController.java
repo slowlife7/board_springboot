@@ -81,4 +81,14 @@ public class PostController {
 
         return "redirect:/post/"+postid;
     }
+
+    @GetMapping("/modify/{postid}")
+    String modifyArticle(@PathVariable Long postid, @SessionAttribute(name=SessionConst.MY_SESSION_ID, required = false) User user, Model model) {
+        if(user == null) {
+            return "redirect:/member/loginForm";
+        }
+
+        model.addAttribute("user", user);
+        return "post/modifyForm";
+    }
 }

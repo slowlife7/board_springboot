@@ -59,6 +59,9 @@
         <div class="col-md-8" >
       <span>
         <a href="#" class="" th:text="${article.post.author}">herry</a>
+          <span th:if="${user != null} and ${article.post.author == user.id}">
+            <a href="#" class="btn btn-primary btn-sm" th:href="@{@{/post/modify/{postid}(postid=${article.post.number})}}">수정</a>
+          </span>
       </span>
             <div>
                 <span class="small font-weight-light" th:text="${article.post.date}">2021-03-18 12:00:37 작성</span>

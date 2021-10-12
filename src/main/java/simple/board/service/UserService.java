@@ -27,6 +27,13 @@ public class UserService {
         user.setName("herry1");
         user.setEmail("rasgo@naver.com");
         userRepository.register(user);
+
+        User user1 = new User();
+        user1.setId("billy98");
+        user1.setPw("1234");
+        user1.setName("billy98");
+        user1.setEmail("rasgo1@naver.com");
+        userRepository.register(user1);
     }
 
     public boolean isDuplicateId(String id){
