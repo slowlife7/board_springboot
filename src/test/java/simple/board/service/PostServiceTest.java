@@ -128,6 +128,21 @@ class PostServiceTest {
         //then
         PostComment postWithComments = postService.getPostWithComments(post.getNumber());
         assertThat(postWithComments.getComments()).contains(comment);
+    }
 
+    @Test
+    void findPostByIdTest() {
+
+        Post post = new Post();
+        post.setTitle("findTest1");
+        post.setAuthor("billy");
+        post.setContent("empty");
+        post.setHit(0);
+        post.setDate(new Date());
+        postRepository.save(post);
+
+        Post findPost = postService.findPostById(post.getNumber());
+        assertThat(findPost).isNotNull();
+        assertThat(findPost.getNumber()).isEqualTo(post.getNumber());
     }
 }

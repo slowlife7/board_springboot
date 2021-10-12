@@ -89,4 +89,8 @@ public class PostService {
         comment.setPostId(findPost.getNumber());
         return commentRepository.save(comment);
     }
+
+    public Post findPostById(final Long postId) {
+        return postRepository.findById(postId);
+    }
 }
