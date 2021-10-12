@@ -30,8 +30,9 @@ public class PostRepository {
         Post post = findById(id);
         post.setTitle(updatePost.getTitle());
         post.setAuthor(updatePost.getAuthor());
-        post.setHit(updatePost.getHit());
-        post.setDate(updatePost.getDate());
+        post.setContent(updatePost.getContent());
+        //post.setHit(updatePost.getHit());
+        //post.setDate(updatePost.getDate());
     }
 
     public Long countAll(){

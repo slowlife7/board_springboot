@@ -60,7 +60,7 @@
       <span>
         <a href="#" class="" th:text="${article.post.author}">herry</a>
           <span th:if="${user != null} and ${article.post.author == user.id}">
-            <a href="#" class="btn btn-primary btn-sm" th:href="@{@{/post/modify/{postid}(postid=${article.post.number})}}">수정</a>
+            <a href="#" class="btn btn-primary btn-sm" th:href="@{/post/modify/{postid}(postid=${article.post.number})}">수정</a>
           </span>
       </span>
             <div>

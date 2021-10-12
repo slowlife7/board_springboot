@@ -94,4 +94,8 @@ public class PostService {
     public Post findPostById(final Long postId) {
         return postRepository.findById(postId);
     }
+
+    public void updateById(final Long postId, Post post) {
+        postRepository.update(postId, post);
+    }
 }

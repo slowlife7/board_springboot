@@ -145,4 +145,30 @@ class PostServiceTest {
         assertThat(findPost).isNotNull();
         assertThat(findPost.getNumber()).isEqualTo(post.getNumber());
     }
+
+    @Test
+    void updatePostTest(){
+        Post post = new Post();
+        post.setTitle("findTest1");
+        post.setAuthor("billy");
+        post.setContent("empty");
+        post.setHit(0);
+        post.setDate(new Date());
+        postRepository.save(post);
+
+        Post post1 = new Post();
+        post1.setTitle("findTest12");
+        post1.setAuthor("billy12");
+        post1.setContent("empty12");
+        post1.setHit(0);
+        post1.setDate(new Date());
+        postRepository.save(post1);
+
+        postService.updateById(post.getNumber(), post1);
+
+        Post findPost = postService.findPostById(post.getNumber());
+
+        assertThat(findPost.getTitle()).isEqualTo(post1.getTitle());
+        assertThat(findPost.getAuthor()).isEqualTo(post1.getAuthor());
+    }
 }

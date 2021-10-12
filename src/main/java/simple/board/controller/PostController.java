@@ -83,7 +83,7 @@ public class PostController {
     }
 
     @GetMapping("/modify/{postid}")
-    String modifyArticle(@PathVariable Long postid, @SessionAttribute(name=SessionConst.MY_SESSION_ID, required = false) User user, Model model) {
+    String getModifyForm(@PathVariable Long postid, @SessionAttribute(name=SessionConst.MY_SESSION_ID, required = false) User user, Model model) {
         if(user == null) {
             return "redirect:/member/loginForm";
         }
@@ -96,5 +96,19 @@ public class PostController {
         model.addAttribute("post", post);
         model.addAttribute("user", user);
         return "post/modifyForm";
+    }
+
+    @PostMapping("/modify/{postid}")
+    String modifyArticle(@PathVariable Long postid, @SessionAttribute(name=SessionConst.MY_SESSION_ID, required = false) User user, @ModelAttribute Post post) {
+        if(user == null) {
+            return "redirect:/member/loginForm";
+        }
+
+        log.info("postid:{}", postid);
+        post.setNumber(postid);
+
+        postService.updateById(postid, post);
+
+        return "redirect:/post/modify/"+postid;
     }
 }
