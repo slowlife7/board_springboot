@@ -32,6 +32,7 @@ public class PostService {
             post.setAuthor("billy"+i);
             post.setHit(0);
             post.setDate(new Date());
+            post.setContent("hello!!!!!!!"+i);
             postRepository.save(post);
 
             for(int j = 0; j < 10; j++) {

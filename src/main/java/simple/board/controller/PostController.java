@@ -88,6 +88,12 @@ public class PostController {
             return "redirect:/member/loginForm";
         }
 
+        Post post = postService.findPostById(postid);
+        if(post == null) {
+            return "redirect:/post";
+        }
+
+        model.addAttribute("post", post);
         model.addAttribute("user", user);
         return "post/modifyForm";
     }
