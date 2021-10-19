@@ -63,4 +63,35 @@ class CommentRepositoryTest {
         assertThat(findComments.size()).isEqualTo(2);
         assertThat(findComments).contains(comment2, Index.atIndex(0));
     }
+
+    @Test
+    void updateComment() {
+        //given
+        Post post = new Post();
+        post.setTitle("hello");
+        post.setAuthor("billy");
+        post.setHit(0);
+        post.setDate(new Date());
+        postRepository.save(post);
+
+        Comment comment = new Comment();
+        comment.setPostId(post.getNumber());
+        comment.setContent("empty1");
+        comment.setAuthor("tester1");
+        comment.setDate(new Date());
+
+        commentRepository.save(comment);
+
+        Comment comment1 = new Comment();
+        comment1.setPostId(post.getNumber());
+        comment1.setContent("empty2");
+        comment1.setAuthor("tester1");
+        comment1.setDate(new Date());
+        comment1.setId(comment.getId());
+
+        Comment updateComment = commentRepository.updateComment(post.getNumber(), comment1);
+
+        assertThat(updateComment.getContent()).isEqualTo(comment1.getContent());
+        assertThat(updateComment.getAuthor()).isEqualTo(comment1.getAuthor());
+    }
 }

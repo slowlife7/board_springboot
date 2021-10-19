@@ -36,4 +36,20 @@ public class CommentRepository {
     public void clearStore() {
         store.clear();
     }
+
+    public Comment updateComment(final long postId, Comment comment) {
+        List<Comment> comments = findByPostId(postId);
+
+        Optional<Comment> findComment = comments.stream()
+                .filter(c -> c.getId() == comment.getId())
+                .findAny();
+
+        if (findComment.isPresent()) {
+            Comment originComment = findComment.get();
+            originComment.setContent(comment.getContent());
+            return originComment;
+        }
+
+        return null;
+    }
 }
