@@ -5,6 +5,8 @@ import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.transaction.annotation.Transactional;
 import simple.board.model.User;
 import simple.board.repository.PostRepository;
 import simple.board.repository.UserRepository;
@@ -13,17 +15,17 @@ import java.util.Date;
 
 import static org.junit.jupiter.api.Assertions.*;
 
+@SpringBootTest
 class UserServiceTest {
 
-    private UserRepository userRepository = new UserRepository();
-    private UserService userService = new UserService(userRepository);
+    @Autowired
+    UserRepository userRepository;
 
-    @AfterEach
-    void tearDown(){
-        userRepository.clearStore();
-    }
+    @Autowired
+    UserService userService;
 
     @Test
+    @Transactional
     void isDuplicateId() {
 
         /*User user = new User("billy", "1234", "park","test@test.com", new Date());*/
@@ -32,7 +34,7 @@ class UserServiceTest {
         user.setPw("1234");
         user.setName("park");
         user.setEmail("rasgo@naver.com");
-        user.setDate(new Date());
+        //user.setDate(new Date());
         userRepository.register(user);
 
         boolean duplicated = userService.isDuplicateId(user.getId());
@@ -40,13 +42,14 @@ class UserServiceTest {
     }
 
     @Test
+    @Transactional
     void register() {
         User user = new User();
         user.setId("billy");
         user.setPw("1234");
         user.setName("park");
         user.setEmail("rasgo@naver.com");
-        user.setDate(new Date());
+        //user.setDate(new Date());
 
         User register = userService.register(user);
 
@@ -54,11 +57,14 @@ class UserServiceTest {
     }
 
     @Test
+    @Transactional
     void loginTest() {
 
         User user = new User();
         user.setId("billy1");
         user.setPw("1234");
+        user.setName("billy1");
+        user.setEmail("test@test.com");
 
         User register = userService.register(user);
         Assertions.assertThat(register).isEqualTo(user);
@@ -66,8 +72,10 @@ class UserServiceTest {
         User loginUser = new User();
         loginUser.setId("billy1");
         loginUser.setPw("1234");
+        user.setName("billy1");
+        user.setEmail("test@test.com");
 
         User result = userService.login(loginUser);
-        Assertions.assertThat(result).isEqualTo(user);
+        Assertions.assertThat(result.getId()).isEqualTo(user.getId());
     }
 }

@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="simple.board.mapper.UserMapper">
+
+    <insert id="register" parameterType="simple.board.model.User">
+        insert into trn_user (id, pw, name, email, create_date)
+        values (#{id}, #{pw}, #{name}, #{email}, now())
+    </insert>
+
+    <select id="findById" resultType="simple.board.model.User">
+        select * from trn_user where id = #{id}
+    </select>
+
+</mapper>
