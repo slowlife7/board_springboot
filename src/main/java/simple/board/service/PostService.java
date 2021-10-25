@@ -15,7 +15,9 @@ import java.util.List;
 public class PostService {
     private static final int PAGE_LIST_NUM = 5;
     private static final int ONE_PAGE_POST_NUM = 10;
-    private PostRepository postRepository;
+    //private PostRepository postRepository;
+
+    PostRepository postRepository;
     private CommentRepository commentRepository;
 
     @Autowired
@@ -24,7 +26,7 @@ public class PostService {
         this.commentRepository = commentRepository;
     }
 
-    @PostConstruct
+   /* @PostConstruct
     void init() {
         for(int i = 0; i<101; i++){
             Post post = new Post();
@@ -37,14 +39,14 @@ public class PostService {
 
             for(int j = 0; j < 10; j++) {
                 Comment comment = new Comment();
-                comment.setPostId(post.getNumber());
+                comment.setPostId(post.getSeq());
                 comment.setContent("test" + j);
                 comment.setAuthor("herry" + j);
                 comment.setDate(new Date());
                 commentRepository.save(comment);
             }
         }
-    }
+    }*/
 
     public PostListWithPageInfo findPage(final int currentPageNum) {
 
@@ -87,7 +89,7 @@ public class PostService {
             return null;
         }
 
-        comment.setPostId(findPost.getNumber());
+        comment.setPostId(findPost.getSeq());
         return commentRepository.save(comment);
     }
 

@@ -105,7 +105,7 @@ public class PostController {
         }
 
         log.info("postid:{}", postid);
-        post.setNumber(postid);
+        post.setSeq(postid);
 
         postService.updateById(postid, post);
 

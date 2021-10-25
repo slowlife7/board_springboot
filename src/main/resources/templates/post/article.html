@@ -60,11 +60,11 @@
       <span>
         <a href="#" class="" th:text="${article.post.author}">herry</a>
           <span th:if="${user != null} and ${article.post.author == user.id}">
-            <a href="#" class="btn btn-primary btn-sm" th:href="@{/post/modify/{postid}(postid=${article.post.number})}">수정</a>
+            <a href="#" class="btn btn-primary btn-sm" th:href="@{/post/modify/{postid}(postid=${article.post.seq})}">수정</a>
           </span>
       </span>
             <div>
-                <span class="small font-weight-light" th:text="${article.post.date}">2021-03-18 12:00:37 작성</span>
+                <span class="small font-weight-light" th:text="${article.post.createDate}">2021-03-18 12:00:37 작성</span>
                 <span class="small font-weight-light">2021-03-18 12:00:37 수정</span>
             </div>
         </div>
@@ -119,7 +119,7 @@
                         <div class="row">
                             <div class="col-md-4 border-1">
                                 <!-- {/order/{id}/details(id=3,action='show_all')} -->
-                                <form th:action="@{/post/{postid}/comment/add(postid=${article.post.number})}" th:method="post">
+                                <form th:action="@{/post/{postid}/comment/add(postid=${article.post.seq})}" th:method="post">
                                     <div class="pull-right padding-5">
                                         <button class="btn btn-primary btn-sm" type="submit">댓글쓰기</button>
                                     </div>

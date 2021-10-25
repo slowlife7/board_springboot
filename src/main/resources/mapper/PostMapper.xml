@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="simple.board.mapper.PostMapper">
+
+    <insert id="save" parameterType="simple.board.model.Post">
+        insert into Post (title, author, content,hit, createDate)
+        values (#{title}, #{author}, #{content}, #{hit}, now())
+    </insert>
+
+    <select id="findById" resultType="simple.board.model.Post">
+        select * from Post where seq = #{seq}
+    </select>
+
+    <select id="findAll" resultType="simple.board.model.Post">
+        select * from Post;
+    </select>
+
+    <select id="countAll" resultType="Long">
+        select count(*) from Post;
+    </select>
+
+    <select id="findSkipAndLimit" resultType="simple.board.model.Post">
+        select * from Post
+            order by seq desc
+            offset #{skip}
+            limit #{limit}
+    </select>
+
+    <!--<update id="update" parameterType="simple.board.model.Post">
+        update Post set
+            title = #{title},
+            content = ${content}
+            where seq = #{seq}
+    </update>-->
+</mapper>

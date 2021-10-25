@@ -6,11 +6,11 @@ import java.util.Date;
 
 @Data
 public class Post {
-    private long    number;
+    private long    seq;
     private String  title;
     private String  author;
     private String  content;
     private long    hit;
-    private Date    date;
+    private Date    createDate;
 }
 

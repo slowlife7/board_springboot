@@ -31,7 +31,7 @@ class PostServiceTest {
 
     @AfterEach
     void tearDown(){
-        postRepository.clearStore();
+        //postRepository.clearStore();
         commentRepository.clearStore();
     }
 
@@ -43,7 +43,7 @@ class PostServiceTest {
             post.setTitle("hello"+i);
             post.setAuthor("billy");
             post.setHit(0);
-            post.setDate(new Date());
+            //post.setDate(new Date());
             postRepository.save(post);
         }
 
@@ -71,12 +71,12 @@ class PostServiceTest {
         post.setTitle("hello");
         post.setAuthor("billy");
         post.setHit(0);
-        post.setDate(new Date());
+        //post.setDate(new Date());
         postRepository.save(post);
 
         for(int j = 0; j<10; j++) {
             Comment comment = new Comment();
-            comment.setPostId(post.getNumber());
+            comment.setPostId(post.getSeq());
             comment.setContent("test" + j);
             comment.setAuthor("test" + j);
             comment.setDate(new Date());
@@ -84,7 +84,7 @@ class PostServiceTest {
         }
 
         //when
-        PostComment postWithComments = postService.getPostWithComments(post.getNumber());
+        PostComment postWithComments = postService.getPostWithComments(post.getSeq());
 
         //then
         assertThat(postWithComments).isNotNull();
@@ -99,7 +99,7 @@ class PostServiceTest {
         post.setTitle("test!!!");
         post.setAuthor("carry");
         post.setHit(0);
-        post.setDate(new Date());
+        //post.setDate(new Date());
 
         //when
         Post result = postService.savePost(post);
@@ -115,7 +115,7 @@ class PostServiceTest {
         post.setTitle("post!!");
         post.setAuthor("billy");
         post.setContent("hello!!");
-        post.setDate(new Date());
+        //post.setDate(new Date());
         postRepository.save(post);
 
         Comment comment = new Comment();
@@ -123,10 +123,10 @@ class PostServiceTest {
         comment.setAuthor("herry");
 
         //when
-        postService.saveCommentToPost(post.getNumber(), comment);
+        postService.saveCommentToPost(post.getSeq(), comment);
 
         //then
-        PostComment postWithComments = postService.getPostWithComments(post.getNumber());
+        PostComment postWithComments = postService.getPostWithComments(post.getSeq());
         assertThat(postWithComments.getComments()).contains(comment);
     }
 
@@ -138,12 +138,12 @@ class PostServiceTest {
         post.setAuthor("billy");
         post.setContent("empty");
         post.setHit(0);
-        post.setDate(new Date());
+        //post.setDate(new Date());
         postRepository.save(post);
 
-        Post findPost = postService.findPostById(post.getNumber());
+        Post findPost = postService.findPostById(post.getSeq());
         assertThat(findPost).isNotNull();
-        assertThat(findPost.getNumber()).isEqualTo(post.getNumber());
+        assertThat(findPost.getSeq()).isEqualTo(post.getSeq());
     }
 
     @Test
@@ -153,7 +153,7 @@ class PostServiceTest {
         post.setAuthor("billy");
         post.setContent("empty");
         post.setHit(0);
-        post.setDate(new Date());
+        //post.setDate(new Date());
         postRepository.save(post);
 
         Post post1 = new Post();
@@ -161,12 +161,12 @@ class PostServiceTest {
         post1.setAuthor("billy12");
         post1.setContent("empty12");
         post1.setHit(0);
-        post1.setDate(new Date());
+        //post1.setDate(new Date());
         postRepository.save(post1);
 
-        postService.updateById(post.getNumber(), post1);
+        postService.updateById(post.getSeq(), post1);
 
-        Post findPost = postService.findPostById(post.getNumber());
+        Post findPost = postService.findPostById(post.getSeq());
 
         assertThat(findPost.getTitle()).isEqualTo(post1.getTitle());
         assertThat(findPost.getAuthor()).isEqualTo(post1.getAuthor());

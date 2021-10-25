@@ -63,13 +63,13 @@
             </thead>
             <tbody>
             <tr th:each="post : ${pageInfo.posts}">
-                <th scope="row" th:text="${post.number}"></th>
+                <th scope="row" th:text="${post.seq}"></th>
                 <td>
-                    <a th:href="@{/post/{number}(number=${post.number})}" th:text="${post.title}" />
+                    <a th:href="@{/post/{seq}(seq=${post.seq})}" th:text="${post.title}" />
                 </td>
                 <td th:text="${post.author}"></td>
                 <td th:text="${post.hit}"></td>
-                <td th:text="${post.date}"></td>
+                <td th:text="${post.createDate}"></td>
             </tr>
             </tbody>
         </table>
