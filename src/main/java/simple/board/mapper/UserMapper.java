@@ -5,7 +5,6 @@ import org.springframework.stereotype.Repository;
 import simple.board.model.User;
 
 @Mapper
-@Repository
 public interface UserMapper {
 
     void register(User user);

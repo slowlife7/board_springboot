@@ -1,6 +1,7 @@
 package simple.board.controller;
 
 import lombok.RequiredArgsConstructor;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.util.StringUtils;
@@ -16,10 +17,14 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
 @Controller
-@RequiredArgsConstructor
 @RequestMapping("/member")
 public class MemberController {
-    private final UserService userService;
+    private UserService userService;
+
+    @Autowired
+    public MemberController(UserService userService) {
+        this.userService = userService;
+    }
 
     @GetMapping("loginForm")
     String loginForm(@SessionAttribute(name=SessionConst.MY_SESSION_ID, required = false) User user, Model model){

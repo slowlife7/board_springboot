@@ -19,7 +19,7 @@ public class UserService {
         this.userRepository = userRepository;
     }
 
-    @PostConstruct
+    /*@PostConstruct
     void init() {
         User user = new User();
         user.setId("herry1");
@@ -34,7 +34,7 @@ public class UserService {
         user1.setName("billy98");
         user1.setEmail("rasgo1@naver.com");
         userRepository.register(user1);
-    }
+    }*/
 
     public boolean isDuplicateId(String id){
         Optional<User> findId = userRepository.findById(id);

@@ -88,6 +88,7 @@ class PostRepositoryTest {
         Post oldOne = new Post();
         Post newOne = new Post();
 
+        oldOne.setSeq(1);
         oldOne.setTitle("hello");
         oldOne.setAuthor("billy");
         oldOne.setContent("test1");
@@ -103,7 +104,7 @@ class PostRepositoryTest {
         //when
         postRepository.save(oldOne);
 
-        postRepository.update(oldOne.getSeq(), newOne);
+        postRepository.updateOne(newOne);
         //then
         /*assertThat(oldOne.getTitle()).isEqualTo(newOne.getTitle());
         assertThat(oldOne.getAuthor()).isEqualTo(newOne.getAuthor());

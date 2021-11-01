@@ -13,8 +13,11 @@ import java.util.Optional;
 @Repository
 public class UserRepository {
 
-    @Autowired
-    private UserMapper userMapper;
+    private final UserMapper userMapper;
+
+    public UserRepository(UserMapper userMapper) {
+        this.userMapper = userMapper;
+    }
 
     public User register(User user) {
         userMapper.register(user);

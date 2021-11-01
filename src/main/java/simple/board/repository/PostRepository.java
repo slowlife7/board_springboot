@@ -34,7 +34,8 @@ public class PostRepository {
         /*return new ArrayList<>(store.values());*/
     }
 
-    public void update(Long id, Post updatePost) {
+    public void updateOne(Post updatePost) {
+        postMapper.updateOne(updatePost);
         //postMapper.update(id,updatePost);
     }
 

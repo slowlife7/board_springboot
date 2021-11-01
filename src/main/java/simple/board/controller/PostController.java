@@ -107,8 +107,8 @@ public class PostController {
         log.info("postid:{}", postid);
         post.setSeq(postid);
 
-        postService.updateById(postid, post);
+        postService.updateOne(post);
 
-        return "redirect:/post/modify/"+postid;
+        return "redirect:/post";
     }
 }

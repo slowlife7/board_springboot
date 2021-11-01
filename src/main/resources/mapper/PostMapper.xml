@@ -26,10 +26,10 @@
             limit #{limit}
     </select>
 
-    <!--<update id="update" parameterType="simple.board.model.Post">
+    <update id="updateOne" parameterType="simple.board.model.Post">
         update Post set
             title = #{title},
-            content = ${content}
+            content = #{content}
             where seq = #{seq}
-    </update>-->
+    </update>
 </mapper>
