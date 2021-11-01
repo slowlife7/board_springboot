@@ -17,6 +17,7 @@ public interface PostMapper {
     Post findById(Long id);
     List<Post> findAll();
     void updateOne(Post updatePost);
+    void updateHitById(Long id);
     Long countAll();
     List<Post> findSkipAndLimit(final int skip, final int limit);
 }

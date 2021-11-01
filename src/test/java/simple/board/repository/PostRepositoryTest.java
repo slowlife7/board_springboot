@@ -83,37 +83,6 @@ class PostRepositoryTest {
 
     @Test
     @Transactional
-    void update(){
-        //given
-        Post oldOne = new Post();
-        Post newOne = new Post();
-
-        oldOne.setSeq(1);
-        oldOne.setTitle("hello");
-        oldOne.setAuthor("billy");
-        oldOne.setContent("test1");
-        oldOne.setHit(0);
-        //oldOne.setDate(new Date());
-
-        newOne.setTitle("hello1");
-        newOne.setAuthor("billy1");
-        newOne.setContent("test3");
-        newOne.setHit(1);
-        //newOne.setDate(new Date());
-
-        //when
-        postRepository.save(oldOne);
-
-        postRepository.updateOne(newOne);
-        //then
-        /*assertThat(oldOne.getTitle()).isEqualTo(newOne.getTitle());
-        assertThat(oldOne.getAuthor()).isEqualTo(newOne.getAuthor());
-        //assertThat(oldOne.getHit()).isEqualTo(newOne.getHit());
-        assertThat(oldOne.getDate()).isEqualTo(newOne.getDate());*/
-    }
-
-    @Test
-    @Transactional
     void findSkipAndLimit(){
 
         Post post1 = new Post();

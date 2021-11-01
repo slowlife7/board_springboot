@@ -2,6 +2,7 @@ package simple.board.repository;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
+import org.springframework.transaction.annotation.Transactional;
 import simple.board.mapper.PostMapper;
 import simple.board.model.Post;
 
@@ -24,8 +25,11 @@ public class PostRepository {
         return post;*/
     }
 
+    @Transactional
     public Post findById(Long id) {
-        return postMapper.findById(id);
+        Post post = postMapper.findById(id);
+        postMapper.updateHitById(id);
+        return post;
         /*return store.get(id);*/
     }
 
