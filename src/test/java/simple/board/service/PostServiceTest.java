@@ -25,14 +25,14 @@ class PostServiceTest {
     @BeforeEach
     void setUp() {
         postRepository = new PostRepository();
-        commentRepository = new CommentRepository();
+        //commentRepository = new CommentRepository();
         postService = new PostService(postRepository, commentRepository);
     }
 
     @AfterEach
     void tearDown(){
         //postRepository.clearStore();
-        commentRepository.clearStore();
+        //commentRepository.clearStore();
     }
 
     @Test
@@ -164,7 +164,7 @@ class PostServiceTest {
         //post1.setDate(new Date());
         postRepository.save(post1);
 
-        postService.updateById(post.getSeq(), post1);
+        postService.updateOne(post1);
 
         Post findPost = postService.findPostById(post.getSeq());
 

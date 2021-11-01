@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="simple.board.mapper.CommentMapper">
+    <insert id="save" parameterType="simple.board.model.Comment"
+            useGeneratedKeys="true"
+            keyProperty="id"
+            keyColumn="id">
+        insert into comment (postId, content, author,date)
+        values (#{postId}, #{content}, #{author}, now())
+    </insert>
+
+    <select id="findByPostId" resultType="simple.board.model.Comment">
+        select * from comment
+            where postId = #{postId}
+            order by id desc
+    </select>
+
+    <update id="updateComment" parameterType="simple.board.model.Comment">
+        update comment
+            set content = #{content}
+        where postId = #{postId} and id=#{id}
+    </update>
+
+</mapper>
