@@ -1,6 +1,7 @@
 package simple.board.controller;
 
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -16,6 +17,7 @@ import simple.board.service.UserService;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
+@Slf4j
 @Controller
 @RequestMapping("/member")
 public class MemberController {
@@ -26,29 +28,25 @@ public class MemberController {
         this.userService = userService;
     }
 
-    @GetMapping("loginForm")
-    String loginForm(@SessionAttribute(name=SessionConst.MY_SESSION_ID, required = false) User user, Model model){
-
-        if(user != null){
-            return "redirect:/";
-        }
-
+    @GetMapping("login")
+    String loginForm(Model model){
         model.addAttribute(new User());
         return "member/loginForm";
     }
 
     @PostMapping("login")
-    String login(@ModelAttribute User user, BindingResult bindingResult, HttpServletRequest request) {
+    String login(@ModelAttribute User user, BindingResult bindingResult, @RequestParam(defaultValue = "/") String redirectURL, HttpServletRequest request) {
         User loginUser = userService.login(user);
         if(loginUser == null ) {
             bindingResult.addError(new ObjectError("user", "유저 아이디 또는 암호가 틀렸습니다"));
             return "member/loginForm";
         }
 
+        log.info("redirectURL: {}", redirectURL);
         HttpSession session = request.getSession();
-        session.setAttribute(SessionConst.MY_SESSION_ID, user);
+        session.setAttribute(SessionConst.MY_SESSION_ID, loginUser);
 
-        return "redirect:/";
+        return "redirect:"+redirectURL;
     }
 
     @GetMapping("logout")

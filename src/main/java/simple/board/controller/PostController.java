@@ -29,36 +29,24 @@ public class PostController {
         return "post/post";
     }
 
-    @GetMapping("/{id}")
+    @GetMapping("/list/{id}")
     String getPost(@PathVariable Long id, @SessionAttribute(name=SessionConst.MY_SESSION_ID, required = false) User user, Model model) {
 
         log.info("post id:{}", id);
         PostComment postWithComments = postService.getPostWithComments(id);
 
         model.addAttribute("article", postWithComments);
-
-        log.info("user:{}",user);
-
         model.addAttribute("user", user);
         return "post/article";
     }
 
     @GetMapping("/add")
-    String addForm(@SessionAttribute(name=SessionConst.MY_SESSION_ID, required = false) User user, Model model) {
-        if(user == null) {
-            return "redirect:/member/loginForm";
-        }
-
-        model.addAttribute("user", user);
+    String addForm(Model model) {
         return "post/addForm";
     }
 
     @PostMapping("/add")
     String add(@SessionAttribute(name=SessionConst.MY_SESSION_ID, required = false) User user, @ModelAttribute Post post) {
-
-        if(user == null ){
-            return "redirect:/member/loginForm";
-        }
 
         log.info("post:{}", post.toString());
 
@@ -69,9 +57,6 @@ public class PostController {
 
     @PostMapping("/{postid}/comment/add")
     String addComment(@PathVariable Long postid, @SessionAttribute(name=SessionConst.MY_SESSION_ID, required = false) User user, @ModelAttribute Comment comment) {
-        if(user == null ){
-            return "redirect:/member/loginForm";
-        }
 
         comment.setAuthor(user.getId());
         
@@ -79,14 +64,11 @@ public class PostController {
             return "redirect:/member/loginForm";
         }
 
-        return "redirect:/post/"+postid;
+        return "redirect:/post/list/"+postid;
     }
 
     @GetMapping("/modify/{postid}")
-    String getModifyForm(@PathVariable Long postid, @SessionAttribute(name=SessionConst.MY_SESSION_ID, required = false) User user, Model model) {
-        if(user == null) {
-            return "redirect:/member/loginForm";
-        }
+    String getModifyForm(@PathVariable Long postid, Model model) {
 
         Post post = postService.findPostById(postid);
         if(post == null) {
@@ -94,19 +76,14 @@ public class PostController {
         }
 
         model.addAttribute("post", post);
-        model.addAttribute("user", user);
         return "post/modifyForm";
     }
 
     @PostMapping("/modify/{postid}")
-    String modifyArticle(@PathVariable Long postid, @SessionAttribute(name=SessionConst.MY_SESSION_ID, required = false) User user, @ModelAttribute Post post) {
-        if(user == null) {
-            return "redirect:/member/loginForm";
-        }
+    String modifyArticle(@PathVariable Long postid, @ModelAttribute Post post) {
 
         log.info("postid:{}", postid);
         post.setSeq(postid);
-
         postService.updateOne(post);
 
         return "redirect:/post";
